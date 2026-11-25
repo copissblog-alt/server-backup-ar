@@ -1,0 +1,32 @@
+# /etc/server-backup/backup.conf — صلاحيته 600: فيه مسارات وتوكن تيليجرام
+
+# اسم يظهر في اسم الملف والتقرير
+NAME=web-1
+# أين تُحفظ النسخ على السيرفر (الأفضل قرص غير قرص الموقع إن وُجد)
+DEST=/var/backups/server-backup
+
+# المجلدات (افصل بمسافة)، وما يُستثنى منها
+DIRS="/var/www /etc/nginx /etc/letsencrypt"
+EXCLUDES="*/cache/* */node_modules/* */.git/* *.log"
+
+# قواعد MySQL/MariaDB: أسماء مفصولة بمسافة، أو all لكل القواعد
+MYSQL_DATABASES="shop blog"
+MYSQL_DEFAULTS=/root/.my.cnf
+
+# ملفات SQLite
+SQLITE_FILES="/srv/app/data/app.sqlite"
+
+COMPRESS=zstd          # zstd أو gzip
+ENCRYPT_TO=""          # مفتاح age العام: age1... (فارغ = بلا تشفير)
+
+# كم نسخة تبقى
+KEEP_DAILY=7
+KEEP_WEEKLY=4
+KEEP_MONTHLY=6
+
+# نسخة خارج السيرفر عبر rsync + ssh (بمفتاح ssh بلا كلمة مرور). فارغ = بلا
+REMOTE=""              # مثال: backup@backup.example.com:/backups/web-1
+
+# تقرير تيليجرام (اختياري)
+TELEGRAM_TOKEN=""
+TELEGRAM_CHAT_ID=""
